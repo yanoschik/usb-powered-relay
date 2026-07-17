@@ -29,12 +29,13 @@ EOF
 }
 
 do_init() {
-	if [ "$argv" != "2" ] || [ "$op" = "" ]; then
+	if [ "$argv" != "2" ] || [ -z "$op" ]; then
 		usage
 		exit 1
 	fi
 
-	if [ "$UID" -ne "$ROOT_UID" ] ;then
+	CURRENT_UID=$(id -u)
+	if [ "$CURRENT_UID" -ne "$ROOT_UID" ] ;then
 		echo "Warning: you should run the script with root permission!"
 		exit 1
 	fi
